@@ -1,0 +1,501 @@
+--- P[0] ---
+
+--- P[1] ---
+
+--- P[2] ---
+
+--- P[3] ---
+
+--- P[4] ---
+Title of the invention: System and Method for Evolutionary Software Quality Assessment and Metric Recommendation Using Software DNA Mutation Analysis
+--- P[5] ---
+
+--- P[6] ---
+Field /Area of invention: The present invention relates to the field of Software Engineering, Software Quality Assurance, Software      Evolution Analysis, Static Program Analysis, Software Metrics, Version-Controlled Software Analysis and Continuous Integration/Continuous Deployment (CI/CD).More particularly, the invention provides a system and method for analyzing the evolution of software quality across successive versions of a software repository. The system extracts structural and software-quality metrics from source code, represents the metric state of software as Evolutionary Software DNA, detects significant changes in these metric states as software metric mutations, evaluates the evolutionary risk associated with such mutations using an Evolutionary Software DNA Index (ESDI), identifies the source units and quality metrics contributing to the risk, and generates prioritized metric-specific recommendations. The system can operate on version-controlled software repositories and is designed to support multiple programming languages through corresponding source-code parsing and Abstract Syntax Tree (AST) analysis mechanism.
+--- P[7] ---
+
+--- P[8] ---
+Prior Patents and Publications from literature (provide a table summarizing the prior art)
+--- P[9] ---
+
+--- P[10] ---
+Summary and background of the invention (Address the gap / Novelty)
+--- P[11] ---
+
+--- P[12] ---
+Gap in Existing Solutions:
+--- P[13] ---
+
+--- P[14] ---
+     The major gaps addressed by the invention are:
+--- P[15] ---
+Existing quality assessment generally provides a snapshot of software quality, rather than a unified representation of its evolutionary quality state. 
+--- P[16] ---
+Existing approaches do not provide a specific Software DNA representation of successive quality states for tracking software evolution. 
+--- P[17] ---
+A change in a metric is not necessarily harmful by itself; therefore, simply calculating a percentage change does not adequately characterize an evolutionary mutation. 
+--- P[18] ---
+Existing systems do not combine magnitude, persistence, acceleration, co-occurrence and recency into a unified mutation characterization mechanism. 
+--- P[19] ---
+Existing quality scores generally do not specifically represent the evolutionary risk produced by metric mutations across versions. 
+--- P[20] ---
+Existing systems may identify problematic files, but they do not necessarily provide a unified mechanism for identifying the specific metric mutation and source unit responsible for evolutionary deterioration. 
+--- P[21] ---
+Quality recommendations are often generated independently of a quantified evolutionary mutation-risk state. 
+--- P[22] ---
+Existing systems do not provide the proposed closed-loop relationship between software evolution → mutation detection → evolutionary risk → recommendation → optional quality-control action.
+--- P[23] ---
+
+--- P[24] ---
+Novelty and Inventive Step: 
+--- P[25] ---
+The invention introduces the following technical aspects:
+--- P[26] ---
+1. Evolutionary Software DNA Representation
+--- P[27] ---
+A structured multidimensional representation of software quality for each repository version, enabling successive software states to be compared as evolutionary states rather than isolated measurements.
+--- P[28] ---
+2. Five-Dimensional Metric Mutation Analysis
+--- P[29] ---
+A mutation analysis mechanism that characterizes changes using:
+--- P[30] ---
+magnitude, 
+--- P[31] ---
+persistence, 
+--- P[32] ---
+acceleration, 
+--- P[33] ---
+co-occurrence, and 
+--- P[34] ---
+recency. 
+--- P[35] ---
+3. Evolutionary Software DNA Index
+--- P[36] ---
+A calculated risk index derived from the mutation characteristics to quantify the evolutionary deterioration or improvement of the software.
+--- P[37] ---
+4. Source-Level Risk Attribution
+--- P[38] ---
+A mechanism for associating evolutionary risk with specific files, classes, modules, methods or source units instead of providing only a project-level score.
+--- P[39] ---
+5. Incremental Evolutionary Analysis
+--- P[40] ---
+A version-control-aware analysis mechanism that identifies changed source files and selectively re-processes affected components while retaining reusable analysis information for unchanged components.
+--- P[41] ---
+6. Mutation-Driven Quality Recommendations
+--- P[42] ---
+A mechanism that maps detected metric mutations to prioritized and metric-specific software improvement recommendations.
+--- P[43] ---
+7. Closed-Loop Remediation Validation
+--- P[44] ---
+A mechanism that performs:
+--- P[45] ---
+Mutation Detection → Recommendation → Code Transformation → Compilation/Testing → Re-analysis → ESDI Recalculation → Acceptance/Rejection
+--- P[46] ---
+thereby preventing an automated transformation from being accepted solely because a static metric changed.
+--- P[47] ---
+
+--- P[48] ---
+Objective(s) of Invention
+--- P[49] ---
+    The primary objectives of the present invention are:
+--- P[50] ---
+To provide a system for continuous evolutionary assessment of software quality across successive versions of a version-controlled software repository. 
+--- P[51] ---
+To construct an Evolutionary Software DNA representation from software-quality and software-evolution metrics. 
+--- P[52] ---
+To detect significant changes in software-quality metrics between successive software versions as software metric mutations. 
+--- P[53] ---
+To characterize detected mutations using magnitude, persistence, acceleration, co-occurrence and recency. 
+--- P[54] ---
+To calculate an Evolutionary Software DNA Index (ESDI) representing the evolutionary quality risk of the analyzed software. 
+--- P[55] ---
+To identify the specific source units, classes, modules, files and metrics contributing to increased evolutionary risk. 
+--- P[56] ---
+To prioritize software-quality issues according to their evolutionary risk and severity rather than treating all metric violations equally. 
+--- P[57] ---
+To generate metric-specific recommendations corresponding to detected quality mutations. 
+--- P[58] ---
+To support incremental analysis of changing repositories by analyzing affected software components, maintaining dependency information, and reusing analysis information for unchanged components. 
+--- P[59] ---
+To integrate evolutionary software-quality assessment with version-control and CI/CD workflows and provide risk-based integration decisions such as PASS, WARN, BLOCK and CRITICAL BLOCK. 
+--- P[60] ---
+To provide controlled automated remediation for selected high-risk quality problems and to verify the resulting software state through compilation, testing, metric extraction and evolutionary re-analysis. 
+--- P[61] ---
+To provide a closed-loop mechanism from software change detection through evolutionary quality assessment, risk identification, recommendation, remediation and validated integration decision.
+--- P[62] ---
+
+--- P[63] ---
+Working principle of the invent (in brief)
+--- P[64] ---
+
+--- P[65] ---
+The invention works by analyzing the evolution of software quality across successive versions of a version-controlled software repository. The system extracts software-quality metrics from the source code, represents the quality state of each version as Evolutionary Software DNA, detects significant metric changes as mutations, and evaluates their evolutionary risk using the Evolutionary Software DNA Index (ESDI).
+--- P[66] ---
+The working process is as follows:
+--- P[67] ---
+Repository Input: The system receives a version-controlled software repository and identifies its commits and software versions.
+--- P[68] ---
+Change Detection: Changes between successive versions are identified, including the modified source files or software units.
+--- P[69] ---
+Source-Code Analysis: The changed source code is parsed using an appropriate parser to obtain its structural representation, such as an Abstract Syntax Tree (AST).
+--- P[70] ---
+Metric Extraction: Software-quality metrics such as Lines of Code (LOC), Cyclomatic Complexity (CC), Weighted Methods per Class (WMC), Coupling Between Objects (CBO), and Lack of Cohesion of Methods (LCOM) are extracted.
+--- P[71] ---
+Software DNA Construction: The extracted metric values are organized into a multidimensional Software DNA state representing the quality characteristics of each software version.
+--- P[72] ---
+Mutation Detection: Successive Software DNA states are compared to identify significant changes in software-quality metrics.
+--- P[73] ---
+Mutation Characterization: Detected mutations are characterized using magnitude, persistence, acceleration, co-occurrence, and recency.
+--- P[74] ---
+ESDI Calculation: The characterized mutations are combined to calculate the Evolutionary Software DNA Index (ESDI), representing the evolutionary quality risk.
+--- P[75] ---
+Risk and Recommendation: The system identifies the source file, class/module and metric contributing to the risk and generates prioritized metric-specific recommendations.
+--- P[76] ---
+Quality Decision and Re-analysis: Based on the risk level, the system can provide a PASS, WARN or BLOCK decision. Where remediation is supported, the code can be modified, tested and re-analyzed to determine whether the evolutionary quality risk has improved.
+--- P[77] ---
+
+--- P[78] ---
+    Step-by-Step Computational Workflow
+--- P[79] ---
+The working principle of the present invention relies on a version-aware, incremental software-analysis and evolutionary quality-assessment pipeline that continuously evaluates changes in software structure and quality across successive versions. The system converts software-quality states into an Evolutionary Software DNA representation, identifies and characterizes metric mutations, evaluates their evolutionary risk through an Evolutionary Software DNA Index (ESDI), and uses the resulting risk information to control software-quality actions and validated remediation within a software integration environment. The system operates across the following primary computational stages:
+--- P[80] ---
+1. Repository Ingestion & Change-State Translation
+--- P[81] ---
+The system acquires a version-controlled software repository containing successive commits, releases, or software versions. A change-detection mechanism identifies newly added, modified, deleted, or structurally affected source files, classes, methods, and other source units between successive versions.
+--- P[82] ---
+The identified software changes are translated into a structured representation using an Abstract Syntax Tree (AST) or equivalent source-code representation. Unchanged source components and their previously computed analysis information are retained to avoid unnecessary reprocessing.
+--- P[83] ---
+2. Structural & Metric Evaluation
+--- P[84] ---
+The affected source components are analyzed to determine their structural characteristics and software-quality metrics. The system extracts metrics including Lines of Code (LOC), Cyclomatic Complexity (CC), Weighted Methods per Class (WMC), Coupling Between Objects (CBO), and Lack of Cohesion of Methods (LCOM).
+--- P[85] ---
+In parallel, the system updates the dependency relationships between affected source components, thereby maintaining an evolving representation of the software structure.
+--- P[86] ---
+The resulting metric values are associated with their corresponding files, classes, modules, methods, or source units and stored according to the software version in which they were observed.
+--- P[87] ---
+3. Evolutionary Software DNA & Mutation Analysis
+--- P[88] ---
+The extracted metric states are organized into a multidimensional Evolutionary Software DNA representation for each software version. Successive DNA states are computationally compared to identify significant changes in software-quality characteristics.
+--- P[89] ---
+When a metric change satisfies a defined mutation condition, the system identifies the change as a software metric mutation. Each mutation is characterized using five evolutionary properties:
+--- P[90] ---
+Magnitude 
+--- P[91] ---
+Persistence 
+--- P[92] ---
+Acceleration 
+--- P[93] ---
+Co-occurrence 
+--- P[94] ---
+Recency 
+--- P[95] ---
+These characteristics allow the system to distinguish an isolated metric change from a persistent, accelerating, or repeatedly occurring deterioration across software evolution.
+--- P[96] ---
+4. Evolutionary Risk Evaluation & Source-Level Attribution
+--- P[97] ---
+The characterized mutation information is processed by an Evolutionary Software DNA Index (ESDI) engine to calculate an evolutionary quality-risk value for the analyzed software.
+--- P[98] ---
+The calculated risk is further attributed to the specific file, class, module, method, source unit, and metric responsible for the detected deterioration. The system therefore identifies not only whether software quality has deteriorated, but also which evolving software components and metrics contribute to the deterioration.
+--- P[99] ---
+Based on the calculated evolutionary risk, the system prioritizes detected mutations and generates corresponding metric-specific quality recommendations.
+--- P[100] ---
+5. Risk-Based Integration & Controlled Remediation
+--- P[101] ---
+The evolutionary risk information is supplied to a software integration or CI/CD quality gate. Based on predefined risk conditions, the system may produce an integration decision such as:
+--- P[102] ---
+PASS → WARN → BLOCK → CRITICAL BLOCK
+--- P[103] ---
+For selected high-risk mutations, the system may initiate a controlled source-code remediation corresponding to the generated recommendation.
+--- P[104] ---
+The remediation is not accepted solely because the affected metric has improved. Instead, the modified software is subjected to a validation cycle comprising:
+--- P[105] ---
+Code Transformation → Compilation → Testing → Metric Extraction → DNA Reconstruction → Mutation Re-analysis → ESDI Recalculation
+--- P[106] ---
+The resulting evolutionary state is then compared with the pre-remediation state.
+--- P[107] ---
+6. Validated Reintegration & Closed-Loop Evolution
+--- P[108] ---
+When the remediated software satisfies the defined compilation, testing, metric and evolutionary-risk conditions, the modified software state is accepted for integration. If the conditions are not satisfied, the remediation is rejected or the integration remains blocked.
+--- P[109] ---
+Description of the invention in detail (Include drawing and or photograph as needed)
+--- P[110] ---
+The present invention is a software-centric computational architecture for evolutionary assessment of software quality and metric recommendation. The system continuously analyzes successive states of a version-controlled software repository and converts software-quality changes into an evolutionary representation referred to as Evolutionary Software DNA.
+--- P[111] ---
+The architecture detects significant software metric mutations, characterizes such mutations according to magnitude, persistence, acceleration, co-occurrence and recency, calculates an Evolutionary Software DNA Index (ESDI), attributes evolutionary risk to responsible source units, and provides risk-based recommendations and integration decisions. Selected high-risk mutations may further undergo controlled remediation followed by compilation, testing and evolutionary re-analysis.
+--- P[112] ---
+The system processes software through the following primary computational phases.
+--- P[113] ---
+
+--- P[114] ---
+Phase 1: Repository Ingestion and Evolutionary Baseline Construction
+--- P[115] ---
+Detailed Execution:
+--- P[116] ---
+The execution cycle begins with a version-controlled software repository containing source code and its historical commits, releases or versions. The Repository and Version Management Module identifies the current software version and its preceding version and establishes the corresponding software states for comparison.
+--- P[117] ---
+The Change Detection Module identifies added, modified and deleted files, classes, methods and other source components.
+--- P[118] ---
+Computational Action:
+--- P[119] ---
+The identified software state is passed to the Incremental Source-Code Analysis Module, which parses the affected source components into an Abstract Syntax Tree (AST) or equivalent structural representation.
+--- P[120] ---
+Previously analyzed information corresponding to unchanged components is retained as reusable analysis information. This establishes an evolutionary baseline without requiring complete re-analysis of the repository for every software change.
+--- P[121] ---
+
+--- P[122] ---
+Phase 2: Localized Structural and Dependency Analysis
+--- P[123] ---
+Detailed Execution:
+--- P[124] ---
+The system determines the structural relationships associated with the changed source components. The Dependency Analysis Module identifies affected relationships between files, classes, methods, modules and other source units.
+--- P[125] ---
+The system determines whether a modified component has caused structural effects on dependent components.
+--- P[126] ---
+Computational Action:
+--- P[127] ---
+Only the affected source components and relevant dependency relationships are reprocessed. The updated structural information is maintained together with reusable information corresponding to unchanged components.
+--- P[128] ---
+This provides an incremental evolutionary analysis mechanism that reduces redundant processing during successive software changes.
+--- P[129] ---
+
+--- P[130] ---
+Phase 3: Metric Extraction and Evolutionary Software DNA Construction
+--- P[131] ---
+Detailed Execution:
+--- P[132] ---
+The analyzed source components are supplied to the Software Metric Extraction Module.
+--- P[133] ---
+The module calculates software-quality metrics including:
+--- P[134] ---
+Lines of Code (LOC) 
+--- P[135] ---
+Cyclomatic Complexity (CC) 
+--- P[136] ---
+Weighted Methods per Class (WMC) 
+--- P[137] ---
+Coupling Between Objects (CBO) 
+--- P[138] ---
+Lack of Cohesion of Methods (LCOM) 
+--- P[139] ---
+The metric values are associated with their respective files, classes, modules, methods or source units and stored according to the corresponding software version.
+--- P[140] ---
+
+--- P[141] ---
+Computational Action:
+--- P[142] ---
+The extracted metric state is transformed into a multidimensional Evolutionary Software DNA representation.
+--- P[143] ---
+Each software version therefore produces a corresponding DNA state, allowing the system to represent software quality as an evolving sequence rather than as independent quality measurements.
+--- P[144] ---
+
+--- P[145] ---
+Phase 4: Mutation Detection and Evolutionary Risk Analysis
+--- P[146] ---
+Detailed Execution:
+--- P[147] ---
+The Mutation Analysis Module compares the current Evolutionary Software DNA state with one or more preceding DNA states.
+--- P[148] ---
+Significant changes in software-quality metrics are identified as software metric mutations.
+--- P[149] ---
+Each mutation is evaluated using five evolutionary characteristics:
+--- P[150] ---
+Magnitude → Persistence → Acceleration → Co-occurrence → Recency
+--- P[151] ---
+Computational Action:
+--- P[152] ---
+The system determines the extent, duration, rate, combined occurrence and temporal relevance of each detected mutation.
+--- P[153] ---
+The resulting mutation characteristics are supplied to the Evolutionary Software DNA Index (ESDI) Engine, which calculates an evolutionary quality-risk value.
+--- P[154] ---
+The system further attributes the calculated risk to the corresponding source file, class, module, method, source unit and metric.
+--- P[155] ---
+
+--- P[156] ---
+Phase 5: Risk-Driven Recommendation and CI/CD Quality Control
+--- P[157] ---
+Detailed Execution:
+--- P[158] ---
+The Mutation-Driven Recommendation Module receives the detected mutations, responsible source units, affected metrics and calculated evolutionary risk.
+--- P[159] ---
+The module generates prioritized and metric-specific recommendations corresponding to the identified quality mutations.
+--- P[160] ---
+The resulting evolutionary risk is then supplied to the CI/CD Quality Gate Module.
+--- P[161] ---
+Computational Action:
+--- P[162] ---
+The system evaluates the calculated risk against predefined integration conditions and generates a risk-based decision such as:
+--- P[163] ---
+PASS / WARN / BLOCK / CRITICAL BLOCK
+--- P[164] ---
+Low-risk changes may proceed through the integration pipeline, whereas high-risk evolutionary mutations may generate warnings or prevent integration.
+--- P[165] ---
+
+--- P[166] ---
+Phase 6: Controlled Remediation and Evolutionary Validation
+--- P[167] ---
+Detailed Execution:
+--- P[168] ---
+For selected high-risk mutations, the system may initiate a Controlled Remediation Module.
+--- P[169] ---
+The module applies a selected source-code transformation corresponding to the identified quality problem and generated recommendation.
+--- P[170] ---
+Computational Action:
+--- P[171] ---
+The transformed software is subjected to a validation cycle:
+--- P[172] ---
+Code Transformation → Compilation → Testing → Metric Extraction → DNA Reconstruction → Mutation Re-analysis → ESDI Recalculation
+--- P[173] ---
+The system compares the resulting evolutionary state with the pre-remediation state.
+--- P[174] ---
+A remediation is accepted only when the resulting software satisfies the defined compilation, testing and evolutionary-quality conditions. Otherwise, the transformation is rejected or the integration decision remains blocked.
+--- P[175] ---
+
+--- P[176] ---
+Phase 7: Validated Evolutionary Reintegration
+--- P[177] ---
+Detailed Execution:
+--- P[178] ---
+Following successful validation, the resulting software state is incorporated into the evolutionary history of the repository.
+--- P[179] ---
+The validated DNA state becomes available as a reference state for subsequent software versions.
+--- P[180] ---
+Computational Action:
+--- P[181] ---
+The system thereby establishes a continuous closed-loop mechanism:
+--- P[182] ---
+Software Change → Structural Analysis → Metric Extraction → Software DNA → Mutation Detection → ESDI → Risk Attribution → Recommendation → CI/CD Decision → Remediation → Validation → Re-analysis → Reintegration
+--- P[183] ---
+This allows the quality assessment process to continuously evolve with the software rather than being limited to a one-time static quality assessment.
+--- P[184] ---
+
+--- P[185] ---
+Aspects of the Invention Requiring Protection
+--- P[186] ---
+Protection is sought for the integrated computational architecture and method that combines evolutionary software representation, mutation analysis, risk attribution, incremental analysis, recommendation, CI/CD control and validated remediation.
+--- P[187] ---
+Specifically, protection is sought for the following technical aspects:
+--- P[188] ---
+1. Evolutionary Software DNA Representation
+--- P[189] ---
+A computational mechanism configured to construct successive multidimensional software-quality states from software-quality and software-evolution metrics and to maintain the states for evolutionary comparison across software versions.
+--- P[190] ---
+2. Five-Dimensional Metric Mutation Analysis
+--- P[191] ---
+A mutation-analysis mechanism configured to detect and characterize software-quality metric changes according to:
+--- P[192] ---
+Magnitude; 
+--- P[193] ---
+Persistence; 
+--- P[194] ---
+Acceleration; 
+--- P[195] ---
+Co-occurrence; and 
+--- P[196] ---
+Recency. 
+--- P[197] ---
+The combination of these characteristics is used to distinguish isolated metric changes from persistent, accelerating or correlated evolutionary quality changes.
+--- P[198] ---
+3. Evolutionary Software DNA Index (ESDI)
+--- P[199] ---
+A computational mechanism configured to derive an Evolutionary Software DNA Index from detected mutation characteristics to represent the evolutionary quality risk associated with a software state.
+--- P[200] ---
+4. Source-Level Evolutionary Risk Attribution
+--- P[201] ---
+A mechanism configured to associate the calculated evolutionary risk with specific files, classes, modules, methods, source units and metrics, thereby identifying the components responsible for increased evolutionary risk.
+--- P[202] ---
+5. Incremental Evolutionary Analysis
+--- P[203] ---
+A version-control-aware mechanism configured to identify changed software components, selectively reprocess affected components, update affected dependencies and reuse analysis information corresponding to unchanged components.
+--- P[204] ---
+6. Mutation-Driven Quality Recommendation
+--- P[205] ---
+A mechanism configured to map detected metric mutations and their evolutionary risk to prioritized, metric-specific software-quality recommendations.
+--- P[206] ---
+7. Risk-Based CI/CD Integration Control
+--- P[207] ---
+A mechanism configured to use evolutionary quality risk to control software integration through decisions including:
+--- P[208] ---
+PASS → WARN → BLOCK → CRITICAL BLOCK
+--- P[209] ---
+8. Controlled Remediation and Closed-Loop Validation
+--- P[210] ---
+A mechanism configured to perform:
+--- P[211] ---
+Mutation Detection → Recommendation → Code Transformation → Compilation → Testing → Metric Extraction → DNA Reconstruction → ESDI Recalculation → Acceptance/Rejection
+--- P[212] ---
+wherein an automated remediation is accepted only after the resulting software state satisfies predefined validation and evolutionary-quality conditions.
+--- P[213] ---
+
+--- P[214] ---
+
+--- P[215] ---
+
+--- P[216] ---
+
+--- P[217] ---
+
+--- P[218] ---
+
+--- P[219] ---
+
+--- P[220] ---
+
+--- P[221] ---
+
+--- P[222] ---
+
+--- P[223] ---
+
+--- P[224] ---
+
+--- P[225] ---
+What is Technology readiness level of your invention? (Tick the appropriate TRL)
+--- P[226] ---
+
+--- P[227] ---
+
+--- P[228] ---
+----------------------END OF THE DOCUMENT-----------------------------
+--- P[229] ---
+
+--- P[230] ---
+
+--- P[231] ---
+
+
+=== TABLE 0 ===
+ 	Invention Disclosure Format (IDF)-B | Document No. | 02-IPR-R003
+ 	Invention Disclosure Format (IDF)-B | Issue No/Date | 2/01.02.2024
+ 	Invention Disclosure Format (IDF)-B | Amd. No/Date | 0/00.00.0000
+
+=== TABLE 1 ===
+Patent / Paper Title | Patent Number | Description / Key Features | Link
+Methods and systems for generating software quality index | WO2009089294A2 | Generates a software-quality index using source-code metrics, static-analysis violations, fault-prone files and source-control information to assess software quality. |   https://patents.google.com/patent/WO2009089294A2/en
+Technologies for code failure proneness estimation | US8332822B2 | Estimates code failure proneness using code metrics, code churn and historical information from previous software versions. |  https://patents.google.com/patent/US8332822B2/en
+Analysis of source code changes | US8984485B2 | Uses an Abstract Syntax Tree (AST) to analyze source-code changes between software versions and determine their effects on code-quality characteristics. | https://patents.google.com/patent/US8984485B2/en
+Systems and methods for software quality prediction | US11334351B1 | Uses source-code structure, commit history, quality metrics and relationships between source files to identify code hotspots and predict software quality. | https://patents.google.com/patent/US11334351B1/en
+Process metric element evaluation method for evolution software | CN112416789A | Evaluates process metrics during software evolution by analyzing historical software versions and changes in software modules. | https://patents.google.com/patent/CN112416789A/en
+Software intelligence as-a-service | US11947956B2 | Uses software functional building blocks and a software genome representation to analyze software and identify issues. | https://patents.google.com/patent/US11947956B2/en
+Customizable service for recommendations on source code quality | US11392844B1 | Provides source-code quality recommendations for specific code portions or repositories using predefined rules and/or machine-learning techniques. | https://patents.google.com/patent/US11392844B1/en
+System and method for identifying viable refactorings of program code using a comprehensive test suite | US7669188B2 | Identifies and applies possible code refactorings and uses testing to determine whether the resulting program remains valid. | https://patents.google.com/patent/US7669188B2/en
+Software quality detection method and system, and storage medium | WO2025107406A1 | Uses AST-based control-flow and call-graph analysis together with multiple software metrics to detect and assess software quality. | https://patents.google.com/patent/WO2025107406A1/en
+
+=== TABLE 2 ===
+ 	Invention Disclosure Format (IDF)-B | Document No. | 02-IPR-R003
+ 	Invention Disclosure Format (IDF)-B | Issue No/Date | 2/01.02.2024
+ 	Invention Disclosure Format (IDF)-B | Amd. No/Date | 0/00.00.0000
+
+=== TABLE 3 ===
+Research | Research | Research | Development | Development | Development | Deployment | Deployment | Deployment
+TRL 1 | TRL 2 | TRL 3 | TRL 4 | TRL 5 | TRL 6 | TRL 7 | TRL 8 | TRL 9
+Basic | Technology | Experimental | Technology | Technology | Technology | System | System | Actual system
+Principles | concept | proof of | validated in | validated in a | demonstrated | prototype | complete | proven in an
+observed | formulated | concept | a lab | relevant | in a relevant | demonstration | and | operational
+ |  |  |  | environment | environment | in an | qualified | environment
+ |  |  |  | (industrially | (industrially | operational |  | (competitive
+ |  |  |  | relevant in | relevant in | environment |  | manufacturing
+ |  |  |  | case of key | case of key |  |  | in case of key
+ |  |  |  | enabling | enabling |  |  | enabling
+ |  |  |  | technologies) | technologies) |  |  | technologies,
+ |  |  |  |  |  |  |  | or in space )
+Yes | Yes | Yes |  |  |  |  |  | 
